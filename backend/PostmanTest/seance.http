@@ -1,0 +1,17 @@
+###
+GET http://localhost:3000/api/seances HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjMxYjQzNDZiY2EzMzRiYmJmZTQzMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzQyNzQ0OSwiZXhwIjoxNzM1MjAzNDQ5fQ.yYfQHJuQzJ_6UE_f7-Zwb5P4V5mnXzWR35rmGFSbtIw 
+
+
+###
+post http://localhost:3000/api/seances HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjMxYjQzNDZiY2EzMzRiYmJmZTQzMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcyNzQyNzQ0OSwiZXhwIjoxNzM1MjAzNDQ5fQ.yYfQHJuQzJ_6UE_f7-Zwb5P4V5mnXzWR35rmGFSbtIw 
+
+Content-Type: application/json
+
+{
+     "film": "66f34ce6de89cb9fe600ed93", 
+  "salle": "66f51f42cb6856e80b616952", 
+  "date": "2024-09-25",
+  "price": 50
+}

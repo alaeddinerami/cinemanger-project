@@ -1,0 +1,28 @@
+### create salle
+POST http://localhost:3000/api/salles HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Main Auditorium",
+  "capacity": 30
+}
+
+
+###
+GET http://localhost:3000/api/salles HTTP/1.1
+###
+GET http://localhost:3000/api/salles/66f51d1dce2df878d57dba96 HTTP/1.1
+
+### update salle
+PUT http://localhost:3000/api/salles/66f51d1dce2df878d57dba96 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "maalain",
+  "capacity": 30
+}
+### delete salle
+
+DELETE http://localhost:3000/api/salles/66f51d1dce2df878d57dba96 HTTP/1.1
+
+
