@@ -1,17 +1,19 @@
 const express = require("express");
 const cors = require('cors');
 const connectDB = require('./config/db')
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 const authRoute = require('./routers/userRoutes')
 const User = require('./models/User')
 const bcrypt = require('bcryptjs')
 const filmRoute = require('./routers/filmRoutes');
 const salleRoute = require('./routers/salleRoutes');
 const seanceRoute = require('./routers/seanceRoute')
+const ratingRoute = require('./routers/rating.routes')
 const reservationRoute = require('./routers/reservationRoutes')
-const clientMidd = require('./middlewares/client');
-const isAdmin = require("./middlewares/admin");
+const favoriteRoute = require('./routers/favorite.routes')
+const commentRoute = require('./routers/comment.routes')
 const  auth  = require("./middlewares/auth");
+
 connectDB();
 const app = express();
 app.use(express.json());
@@ -19,13 +21,10 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/uploads', express.static('uploads'));
 
-// app.get('/api/home',(req,res)=>{
-//     res.status(200).json({message: 'alalaa'})
-// })
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-    credentials: true // Allow credentials (if needed)
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    credentials: true 
 }));
 
 async function initAdmin(){
@@ -56,6 +55,10 @@ app.use('/api', authRoute);
 app.use('/api/films', filmRoute);
 app.use('/api/salles',salleRoute);
 app.use('/api/seances', seanceRoute);
+app.use('/api/favorites',auth(['client']), favoriteRoute );
+app.use('/api/ratings', ratingRoute );
+app.use('/api/comments',auth(['client']), commentRoute );
+
 
 
 const PORT = process.env.PORT || 5000;

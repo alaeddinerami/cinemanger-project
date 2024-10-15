@@ -3,7 +3,9 @@ const schema = mongoose.Schema;
 const favoriteSchema = new mongoose.Schema({
   user: { type: schema.Types.ObjectId, ref: 'User', required: true },
   film: { type: schema.Types.ObjectId, ref: 'Film', required: true },
-  createdAt: { type: Date, default: Date.now }
+},
+{
+  timestamps:true
 });
 
 const Favorite = mongoose.model('Favorite', favoriteSchema);

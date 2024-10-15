@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const FilmController = require("../controllers/Film.controller");
+const filmController = require('../controllers/Film.controller');
+const upload = require('../middlewares/upload')
 
-router.post('/', FilmController.create);
-router.get('/', FilmController.getAll);
-router.get('/:id', FilmController.getFilmById);
-router.get('/filmSeanse/:id', FilmController.getFilmByIdWithSeance);
-router.put('/:id', FilmController.update);
-router.delete('/:id', FilmController.delete);
+router.post('/', upload,filmController.createFilm);
+router.get('/', filmController.getAllFilms);
+router.get('/:id', filmController.getFilmById);
+router.put('/:id',upload, filmController.updateFilm);
+router.delete('/:id', filmController.deleteFilm);
 
 module.exports = router;
