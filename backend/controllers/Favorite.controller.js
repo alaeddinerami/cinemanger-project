@@ -1,5 +1,5 @@
 const favoriteService = require('../services/favorite.service');
-
+const FilmService = require('../services/film.service')
 class FavoriteController{
 
     async getFavorite(req,res){
@@ -11,7 +11,7 @@ class FavoriteController{
         }
     }
     async addFavorite(req,res){
-        const {filmId} = req.body
+        const {filmId} = req.params
         const userId = req.user
         // console.log(req.body);
         

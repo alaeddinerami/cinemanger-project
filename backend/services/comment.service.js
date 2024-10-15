@@ -1,10 +1,16 @@
-const Comment = require('../models/Comment.model')
+const Comment = require('../models/Comment.model');
+const FilmModel = require('../models/Film.model');
 
 class CommentService{
     async createComment(userId,filmId,comment){
         console.log(userId,filmId,comment);
 
         try {
+            const filmexist = await FilmModel.findById(filmId); 
+            
+            if (!filmexist) {
+                throw new Error('Film not found');
+            }
             const newComment = new Comment({
                 user: userId,
                 film: filmId,
@@ -16,6 +22,14 @@ class CommentService{
                              
         } catch (error) {
             throw new Error(`error adding comment in serves: ${error.message}`)
+        }
+    }
+
+    async getComments(){
+        try {
+            return await Comment.find();
+        } catch (error) {
+            throw new Error(`error geting comment in serves: ${error.message}`)
         }
     }
 }

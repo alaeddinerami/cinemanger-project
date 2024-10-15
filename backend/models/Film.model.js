@@ -34,10 +34,7 @@ const filmSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    ratings: [{
-        type: schema.Types.ObjectId,
-        ref: 'Rating', 
-    }],
+  
 }, {
     timestamps: true, 
 });

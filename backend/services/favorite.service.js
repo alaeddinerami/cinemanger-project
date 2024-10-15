@@ -1,6 +1,8 @@
 const Favorite = require("../models/Favorite.model");
+const FilmModel = require("../models/Film.model");
 
 class FavoriteService {
+    
     async getFavorite(){
         try {
             return await Favorite.find()
@@ -10,7 +12,15 @@ class FavoriteService {
     }
   async addFavorite(userId, filmId) {
     try {
-    //   console.log(userId);
+
+        //   console.log(userId,filmId);
+
+        const film = await FilmModel.findById(filmId); 
+        if (!film) {
+            return res.status(404).json({ error: 'Film not found' });
+        }
+        // console.log(film);
+        
       const newFavorite = new Favorite({
         user: userId,
         film: filmId,

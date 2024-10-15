@@ -52,10 +52,9 @@ class FilmService {
         }
     }
 
-    async getAllFilms(filter = {}) {
+    async getAllFilms() {
         try {
-            const query = filter.genre ? { genre: filter.genre } : {};
-            return await Film.find(query).populate('ratings');
+            return await Film.find();
         } catch (error) {
             throw new Error(`Error fetching films: ${error.message}`);
         }
