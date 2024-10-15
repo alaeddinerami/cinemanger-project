@@ -34,12 +34,11 @@ class FavoriteService {
 
   async removeFavorite(id){
     try {
-        
         const removeFavorite = await Favorite.findByIdAndDelete(id);
         if(!removeFavorite){
            throw new error(`fovorite not found`);
         }
-
+        
          return removeFavorite;
     } catch (error) {
         throw new error(`Error removing favorite: ${error.message}`)

@@ -32,5 +32,19 @@ class CommentService{
             throw new Error(`error geting comment in serves: ${error.message}`)
         }
     }
+
+    async removeComment(id){
+        try {
+            
+            const comment =   await Comment.findByIdAndDelete(id)
+            console.log(comment);
+            if(!comment){
+                throw new Error('comment not found')
+            }
+            return removeComment;
+        } catch (error) {
+            throw new Error(`error deleting comment in serves: ${error.message}`)
+        }
+    }
 }
 module.exports = new CommentService();
