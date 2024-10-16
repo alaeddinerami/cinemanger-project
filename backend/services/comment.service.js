@@ -32,16 +32,38 @@ class CommentService{
             throw new Error(`error geting comment in serves: ${error.message}`)
         }
     }
+    async updateComment(userId, commentId, updateMessage) {
+        try {
+            // console.log(userId);
+            const comment = await Comment.findById(commentId);
+            
+            if (!comment) {
+                throw new Error('Comment not found');
+            }
+            console.log(comment.user.toString());
+            console.log(userId);
+            
+            if (comment.user.toString() !== userId) {
+                throw new Error('Unauthorized: You cannot update someone else\'s comment');
+            }
 
+            comment.comment = updateMessage;
+            await comment.save();
+
+            return comment;
+        } catch (error) {
+            throw new Error(`Error updating comment in service: ${error.message}`);
+        }
+    }
     async removeComment(id){
         try {
             
-            const comment =   await Comment.findByIdAndDelete(id)
-            console.log(comment);
-            if(!comment){
+            const removecomment =   await Comment.findByIdAndDelete(id)
+            // console.log(removecomment);
+            if(!removecomment){
                 throw new Error('comment not found')
             }
-            return removeComment;
+            return removecomment;
         } catch (error) {
             throw new Error(`error deleting comment in serves: ${error.message}`)
         }
