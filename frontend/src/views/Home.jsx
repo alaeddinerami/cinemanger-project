@@ -37,11 +37,11 @@ const Home = () => {
   const handleFilterChange = (genre) => {
     setSelectedGenre(genre);
   };
-
   const filteredFilms = selectedGenre
-    ? films.filter(film => film.genre === selectedGenre)
-    : films;
-
+  ? films.filter(film => film.genre === selectedGenre)
+  : films;
+  
+  console.log(filteredFilms);
   return (
     <div className="bg-black">
       <Header />
@@ -57,13 +57,15 @@ const Home = () => {
           {error && <p className="text-red-500">{error}</p>} 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredFilms.map((film) => (
+            
             <Card
-              key={film._id} 
-              imgSrc={film.image}
-              title={film.title}
-              genre={film.genre}
-              id={film._id}
+            key={film._id} 
+            imgSrc={film.image}
+            title={film.title}
+            genre={film.genre}
+            id={film._id}
             />
+            
           ))}
           </div>
         </section>
