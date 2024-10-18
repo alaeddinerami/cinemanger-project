@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Table() {
+export default function TableUser() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState({
