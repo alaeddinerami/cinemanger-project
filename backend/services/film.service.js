@@ -15,7 +15,8 @@ class FilmService {
         }
 
         await minioClient.fPutObject(bucketName, fullFileName, filePath);
-        return `http://127.0.0.1:9000/${bucketName}/${fullFileName}`;
+        return `${bucketName}/${fullFileName}`;
+        // return `http://127.0.0.1:9000/${bucketName}/${fullFileName}`;
     }
 
     async createFilm(data, files) {

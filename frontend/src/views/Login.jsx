@@ -35,14 +35,21 @@ const Login = () => {
         
       });
 
-      console.log(response.data); 
+      console.log(response.data.user.role); 
 
       if (response.data.token) {
         
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.user.role);
         
-        
-        navigate("/"); 
+        if(response.data.user.role === "admin"){
+
+          navigate("/dashboard");
+        }
+        else{
+          navigate("/");
+
+        }
       }
     } catch (error) {
       
