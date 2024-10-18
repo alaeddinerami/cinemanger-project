@@ -41,7 +41,7 @@ export default function TableFilm() {
       </table>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex w-full items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded shadow-lg w-1/3">
             <h2 className="text-2xl mb-4">Edit User</h2>
             <form>
