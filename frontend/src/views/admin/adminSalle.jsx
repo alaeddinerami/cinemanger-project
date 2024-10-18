@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import SideBar from "../../Components/dashboard/SideBar/SideBar";
 
-export default function adminSalle() {
+export default function AdminSalle() {
   return (
-    <div>adminSalle</div>
-  )
+    <>
+      <SideBar />
+    </>
+  );
 }

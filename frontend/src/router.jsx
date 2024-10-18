@@ -10,6 +10,9 @@ import FilmDetails from "./views/FilmDetails";
 import SeatSelection from "./views/SeatSelection";
 import Dashboard from "./views/admin/dashboard";
 import AdminFilm from "./views/admin/AdminFilm";
+import AdminUser from "./views/admin/adminUser";
+import AdminSalle from "./views/admin/adminSalle";
+import AdminSession from "./views/admin/AdminSession";
 
 const router = createBrowserRouter([
 
@@ -33,7 +36,8 @@ const router = createBrowserRouter([
       },{
         path:"dashboard",
         element:<Dashboard />
-      },{
+      }
+      ,{
         path:"admin-user",
         element:<AdminUser />
       }
@@ -42,12 +46,12 @@ const router = createBrowserRouter([
         element:<AdminFilm />
       }
       ,{
-        path:"admin-salle",
-        element:<AdminSalle />
-      }
-      ,{
         path:"admin-session",
         element:<AdminSession />
+      },
+      ,{
+        path:"admin-salles",
+        element:<AdminSalle />
       }
       
       
