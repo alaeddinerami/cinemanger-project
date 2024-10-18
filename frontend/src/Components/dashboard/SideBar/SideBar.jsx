@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SideBar() {
   return (
-    <div className="fixed flex flex-col mt-10 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 h-full text-white transition-all duration-300 border-none z-10 ">
+    <div className="fixed flex flex-col left-0 w-14 hover:w-64 md:w-64 bg-blue-900 h-full text-white transition-all duration-300 border-none z-10 ">
       <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
         <ul className="flex flex-col py-4 space-y-1">
           <li>
@@ -36,7 +36,7 @@ export default function SideBar() {
           </li>
           <li>
             <a
-              href="/room"
+              href="/admin-user"
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -60,7 +60,7 @@ export default function SideBar() {
           </li>
           <li>
             <a
-              href="/meal"
+              href="/admin-film"
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -84,7 +84,7 @@ export default function SideBar() {
           </li>
           <li>
             <a
-              href="/meal"
+              href="/session-film"
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">
@@ -118,7 +118,7 @@ export default function SideBar() {
           </li>
           <li>
             <a
-              href="/ds"
+              href="/salle-film"
               className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 pr-6"
             >
               <span className="inline-flex justify-center items-center ml-4">

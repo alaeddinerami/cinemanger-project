@@ -9,11 +9,12 @@ import Home from "./views/Home";
 import FilmDetails from "./views/FilmDetails";
 import SeatSelection from "./views/SeatSelection";
 import Dashboard from "./views/admin/dashboard";
+import AdminFilm from "./views/admin/AdminFilm";
 
 const router = createBrowserRouter([
 
 
-   
+  
   {
     path: "/",
     element: <DefaultLayout />,
@@ -32,6 +33,9 @@ const router = createBrowserRouter([
       },{
         path:"dashboard",
         element:<Dashboard />
+      },{
+        path:"admin-film",
+        element:<AdminFilm />
       }
       
     ],

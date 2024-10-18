@@ -1,9 +1,15 @@
 import React from 'react'
 import SideBar from '../../Components/dashboard/SideBar/SideBar'
 import Layout from '../../Components/dashboard/Layouts/Layout'
+import Statistice from '../../Components/dashboard/Statistice/Statistice'
 
-export default function dashboard() {
+export default function Dashboard() {
   return (
-    <Layout />
+    <>
+      <div>
+        <SideBar />
+        <Statistice />
+      </div>
+    </>
   )
 }
