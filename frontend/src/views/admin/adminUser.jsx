@@ -5,8 +5,8 @@ import TableUser from '../../Components/dashboard/admin-components/Table/TableUs
 export default function AdminUser() {
   return (
     <>
+    <div className=' flex '>
     <SideBar />
-    <div className=' flex flex-col justify-start items-end'>
         <TableUser />
     </div>
     </>

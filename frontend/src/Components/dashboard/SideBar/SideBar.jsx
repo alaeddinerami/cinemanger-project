@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SideBar() {
   return (
-    <div className="fixed flex flex-col left-0 w-14 hover:w-64 md:w-64 bg-blue-900 h-full text-white transition-all duration-300 border-none z-10 ">
+    <div className=" flex flex-col left-0 w-14 hover:w-64 md:w-64 bg-blue-900 h-[100vh] text-white transition-all duration-300 border-none z-10 ">
       <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
         <ul className="flex flex-col py-4 space-y-1">
           <li>
