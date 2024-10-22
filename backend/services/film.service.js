@@ -66,27 +66,27 @@ class FilmService {
         try {
             const film = await Film.findById(id);
             if (!film) throw new Error('Film not found');
-
-
+    
             Object.assign(film, data);
-
-            if (files.image) {
+    
+            if (files && files.image && files.image.length > 0) {
                 const imageFile = files.image[0];
                 const imageUrl = await this.uploadToMinio(imageFile.path, imageFile.originalname, 'films');
                 film.image = imageUrl; 
             }
-
-            if (files.video) {
+    
+            if (files && files.video && files.video.length > 0) {
                 const videoFile = files.video[0];
                 const videoUrl = await this.uploadToMinio(videoFile.path, videoFile.originalname, 'films');
                 film.video = videoUrl; 
             }
-
+    
             return await film.save();
         } catch (error) {
             throw new Error(`Error updating film: ${error.message}`);
         }
     }
+    
 
     
     async deleteFilm(id) {
