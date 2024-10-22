@@ -20,10 +20,10 @@ const Home = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`, 
           },
         });
+        console.log(response.data);
+        
         setFilms(response.data);
         
-        const allGenres = [...new Set(response.data.map(film => film.genre))];
-        setGenres(allGenres);
 
       } catch (error) {
         console.error("Error fetching films:", error);
@@ -41,7 +41,7 @@ const Home = () => {
   ? films.filter(film => film.genre === selectedGenre)
   : films;
   
-  console.log(filteredFilms);
+  // console.log(filteredFilms);
   return (
     <div className="bg-black">
       <Header />
