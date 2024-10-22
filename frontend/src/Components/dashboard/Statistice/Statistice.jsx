@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Statistice({ studentsCount }) {
+export default function Statistice({ userCount , filmCount, salleCount, seancesCount }) {
   return (
     <div>
       <div className="md:pl-24">
@@ -41,9 +41,9 @@ export default function Statistice({ studentsCount }) {
             </div>
             <div className="text-right text-black ">
               <p className="text-2xl" id="alae">
-                students
+                Clients
               </p>
-              <p>20</p>
+              <p>{userCount}</p>
             </div>
           </div>
           <div className="bg-blue-300 shadow-lg rounded-full px-10 flex items-center justify-between p-3 border-b-4 border-blue-300 text-white font-medium group">
@@ -84,7 +84,7 @@ export default function Statistice({ studentsCount }) {
               <p className="text-2xl" id="alae">
                 Films
               </p>
-              <p>14</p>
+              <p>{filmCount}</p>
             </div>
           </div>
           <div className="bg-blue-300 px-10 shadow-lg rounded-full flex items-center justify-between p-3 border-b-4 border-blue-300 text-white font-medium group">
@@ -125,7 +125,7 @@ export default function Statistice({ studentsCount }) {
               <p className="text-2xl" id="alae">
                 Salles
               </p>
-              <p>15</p>
+              <p>{salleCount}</p>
             </div>
           </div>
           <div className="bg-blue-300 px-10 shadow-lg rounded-full flex items-center justify-between p-3 border-b-4 border-blue-300 text-white font-medium group">
@@ -166,7 +166,7 @@ export default function Statistice({ studentsCount }) {
               <p className="text-2xl" id="alae">
                 Sessions
               </p>
-              <p>10</p>
+              <p>{seancesCount}</p>
             </div>
           </div>
         </div>
