@@ -38,8 +38,8 @@ export default function TableFilm() {
                 genre: film.genre,
                 description: film.description,
                 duration: film.duration,
-                image: null, // Keep the previous image if editing
-                video: null, // Keep the previous video if editing
+                image: null, 
+                video: null, 
                 visibility: film.visibility || "public",
                 releaseDate: film.releaseDate,
             });
@@ -99,7 +99,6 @@ export default function TableFilm() {
                 });
                 console.log("Film created:", filmData);
             }
-            // Fetch updated list of films
             const response = await axiosInstance.get("/films");
             setFilms(response.data);
         } catch (error) {

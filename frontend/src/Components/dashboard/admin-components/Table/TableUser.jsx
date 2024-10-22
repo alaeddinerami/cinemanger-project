@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../../../api/axios';
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../../../../api/axios";
 
 export default function TableUser() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [users, setUsers] = useState([]);
   const [userData, setUserData] = useState({
-    id: '',
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    id: "",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
-  // Fetch all users when component loads
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosInstance.get('/admin/all');
+        const response = await axiosInstance.get("/admin/all");
         setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error("Error fetching users:", error);
       }
     };
     fetchUsers();
@@ -29,15 +28,15 @@ export default function TableUser() {
   const handleModalOpen = (user = {}) => {
     if (user.id) {
       setIsEditing(true);
-      setUserData({ ...user, confirmPassword: '' }); 
+      setUserData({ ...user, confirmPassword: "" });
     } else {
       setIsEditing(false);
       setUserData({
         id: user.id,
-        name: user.name, 
+        name: user.name,
         email: user.email,
-        password: '',
-        confirmPassword: '',
+        password: "",
+        confirmPassword: "",
       });
     }
     setIsModalOpen(true);
@@ -50,11 +49,11 @@ export default function TableUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (userData.password !== userData.confirmPassword) {
-      alert('Passwords do not match!');
+      alert("Passwords do not match!");
       return;
     }
 
-    console.log('Submitting user data:', userData);
+    console.log("Submitting user data:", userData);
 
     try {
       if (isEditing) {
@@ -63,20 +62,20 @@ export default function TableUser() {
           email: userData.email,
           password: userData.password || undefined,
         });
-        console.log('User updated:', userData);
+        console.log("User updated:", userData);
       } else {
-        await axiosInstance.post('/admin/create', {
+        await axiosInstance.post("/admin/create", {
           name: userData.name,
           email: userData.email,
           password: userData.password,
-          role: 'admin',
+          role: "admin",
         });
-        console.log('User created:', userData);
+        console.log("User created:", userData);
       }
-      const response = await axiosInstance.get('/admin/all');
+      const response = await axiosInstance.get("/admin/all");
       setUsers(response.data);
     } catch (error) {
-      console.error('Error submitting user:', error.response?.data || error);
+      console.error("Error submitting user:", error.response?.data || error);
     }
 
     closeModal();
@@ -85,11 +84,11 @@ export default function TableUser() {
   const handleDelete = async (userId) => {
     try {
       await axiosInstance.delete(`/admin/${userId}`);
-      console.log('User deleted:', userId);
-      const response = await axiosInstance.get('/admin/all');
+      console.log("User deleted:", userId);
+      const response = await axiosInstance.get("/admin/all");
       setUsers(response.data);
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
     }
   };
 
@@ -98,7 +97,7 @@ export default function TableUser() {
       <div className="flex justify-end mb-4">
         <button
           className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          onClick={() => handleModalOpen()} 
+          onClick={() => handleModalOpen()}
         >
           Create User
         </button>
@@ -122,7 +121,7 @@ export default function TableUser() {
               <td className="py-2 px-4 border-b flex space-x-2">
                 <button
                   className="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  onClick={() => handleModalOpen(user)} 
+                  onClick={() => handleModalOpen(user)}
                 >
                   Edit
                 </button>
@@ -141,14 +140,18 @@ export default function TableUser() {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded shadow-lg w-1/3">
-            <h2 className="text-2xl mb-4">{isEditing ? 'Edit User' : 'Create User'}</h2>
+            <h2 className="text-2xl mb-4">
+              {isEditing ? "Edit User" : "Create User"}
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-700">Name</label>
                 <input
                   type="text"
                   value={userData.name}
-                  onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                  onChange={(e) =>
+                    setUserData({ ...userData, name: e.target.value })
+                  }
                   className="w-full p-2 border border-gray-300 rounded"
                   required
                 />
@@ -158,29 +161,40 @@ export default function TableUser() {
                 <input
                   type="email"
                   value={userData.email}
-                  onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
                   className="w-full p-2 border border-gray-300 rounded"
                   required
                 />
               </div>
-              {!isEditing && ( 
+              {!isEditing && (
                 <>
                   <div className="mb-4">
                     <label className="block text-gray-700">Password</label>
                     <input
                       type="password"
                       value={userData.password}
-                      onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+                      onChange={(e) =>
+                        setUserData({ ...userData, password: e.target.value })
+                      }
                       className="w-full p-2 border border-gray-300 rounded"
                       required
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block text-gray-700">Confirm Password</label>
+                    <label className="block text-gray-700">
+                      Confirm Password
+                    </label>
                     <input
                       type="password"
                       value={userData.confirmPassword}
-                      onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value })}
+                      onChange={(e) =>
+                        setUserData({
+                          ...userData,
+                          confirmPassword: e.target.value,
+                        })
+                      }
                       className="w-full p-2 border border-gray-300 rounded"
                       required
                     />
@@ -199,7 +213,7 @@ export default function TableUser() {
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
-                  {isEditing ? 'Update' : 'Create'}
+                  {isEditing ? "Update" : "Create"}
                 </button>
               </div>
             </form>
