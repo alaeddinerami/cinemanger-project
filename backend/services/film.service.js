@@ -68,7 +68,6 @@ class FilmService {
             if (!film) throw new Error('Film not found');
     
             Object.assign(film, data);
-    
             if (files && files.image && files.image.length > 0) {
                 const imageFile = files.image[0];
                 const imageUrl = await this.uploadToMinio(imageFile.path, imageFile.originalname, 'films');
