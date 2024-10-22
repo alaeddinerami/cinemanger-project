@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Statistice({ userCount , filmCount, salleCount, seancesCount }) {
+export default function Statistice({ userCount , filmCount, salleCount, seanceCount }) {
   return (
     <div>
       <div className="md:pl-24">
@@ -166,7 +166,7 @@ export default function Statistice({ userCount , filmCount, salleCount, seancesC
               <p className="text-2xl" id="alae">
                 Sessions
               </p>
-              <p>{seancesCount}</p>
+              <p>{seanceCount}</p>
             </div>
           </div>
         </div>
