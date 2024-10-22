@@ -23,6 +23,7 @@ export default function FilmDetails() {
         }
         
         const data = await response.json();
+        console.log(data);
         
         if (data && data.film) {
           setFilm(data.film);
@@ -42,7 +43,7 @@ export default function FilmDetails() {
   }, [id]);
 
   const handleSeanceClick = (seance) => {
-    navigate(`/seance/${seance._id}`); // Navigate to SeatSelection with seance ID
+    navigate(`/seance/${seance._id}`); 
   };
 
   if (loading) {
@@ -59,7 +60,7 @@ export default function FilmDetails() {
 
   return (
     <div className="bg-black min-h-screen text-white">
-      <header className="relative w-full h-screen bg-cover bg-center" style={{ backgroundImage: `url(${film.image || imgFilm})` }}>
+      <header className="relative w-full h-screen bg-cover bg-center" style={{ backgroundImage: `url(${import.meta.env.VITE_MINIO_URL}${film.image} || imgFilm})` }}>
         <div className="bg-black bg-opacity-50 w-full h-full flex flex-col">
           <Navbar />
           <div className="m-11 flex-grow flex justify-end flex-col text-white">
@@ -88,7 +89,7 @@ export default function FilmDetails() {
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full md:w-1/3">
             <img
-              src={film.image || imgFilm}
+              src={`${import.meta.env.VITE_MINIO_URL}${film.image}` || imgFilm}
               alt={film.title}
               className="w-full h-auto rounded-lg shadow-lg"
             />
