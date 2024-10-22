@@ -6,7 +6,7 @@ import Statistice from '../../Components/dashboard/Statistice/Statistice'
 export default function Dashboard() {
   return (
     <>
-      <div className='flex'>
+      <div className='flex '>
         <SideBar />
         <Statistice />
       </div>

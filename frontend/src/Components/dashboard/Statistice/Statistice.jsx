@@ -4,7 +4,7 @@ export default function Statistice({ studentsCount }) {
   return (
     <div>
       <div className="md:pl-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:ml-40 p-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4   p-4 gap-4">
           <div className="bg-blue-300 px-10 shadow-lg rounded-full flex items-center justify-between p-3 border-b-4 border-blue-300 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full">
               <svg
@@ -39,7 +39,7 @@ export default function Statistice({ studentsCount }) {
                 />
               </svg>
             </div>
-            <div className="text-right text-black">
+            <div className="text-right text-black ">
               <p className="text-2xl" id="alae">
                 students
               </p>
@@ -80,7 +80,7 @@ export default function Statistice({ studentsCount }) {
                 />
               </svg>
             </div>
-            <div className="text-right text-black">
+            <div className="text-right text-black ">
               <p className="text-2xl" id="alae">
                 Films
               </p>

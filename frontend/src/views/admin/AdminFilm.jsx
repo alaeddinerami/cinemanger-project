@@ -4,8 +4,8 @@ import TableFilm from "../../Components/dashboard/admin-components/Table/TableFi
 export default function AdminFilm() {
   return (
     <>
+    <div className=' flex '>
       <SideBar />
-    <div className=' flex flex-col justify-start items-end'>
         <TableFilm />
     </div>
     </>
