@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../../../api/axios";
 
-export default function TableFilm() {
+export default function TableSalle() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [salles, setSalles] = useState([]);
