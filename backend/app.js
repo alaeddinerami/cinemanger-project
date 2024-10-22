@@ -13,6 +13,7 @@ const reservationRoute = require('./routers/reservationRoutes')
 const favoriteRoute = require('./routers/favorite.routes')
 const commentRoute = require('./routers/comment.routes')
 const  auth  = require("./middlewares/auth");
+const statisticRoute = require('./routers/statistic.routes')
 
 connectDB();
 const app = express();
@@ -58,6 +59,7 @@ app.use('/api/seances', seanceRoute);
 app.use('/api/favorites',auth(['client']), favoriteRoute );
 app.use('/api/ratings', ratingRoute );
 app.use('/api/comments',auth(['client']), commentRoute );
+app.use('/api/statistic',statisticRoute)
 
 
 
