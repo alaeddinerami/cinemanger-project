@@ -13,55 +13,47 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate(); 
 
- 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       navigate("/"); 
     }
   }, [navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       const response = await axios.post("http://localhost:3000/Api/login", {
-
         email: formData.email,
         password: formData.password,
-        
       });
 
-      console.log(response.data.user.role); 
-
       if (response.data.token) {
-        
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("token", response.data.user.role);
         
-        if(response.data.user.role === "admin"){
-
+        localStorage.setItem("role", response.data.user.role); 
+        
+        if (response.data.user.role === "admin") {
           navigate("/dashboard");
-        }
-        else{
+        } else {
           navigate("/");
-
         }
       }
     } catch (error) {
-      
       console.error(error);
       setError("Invalid email or password. Please try again.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-tr from-purple-950 to-purple-500 ">
-      <div className="w-full h-4/6 flex justify-center p-5  ">
-        <div className="w-[40vw] bg-gradient-to-tr from-purple-950 via-purple-800 to-purple-500  rounded-md">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-tr from-purple-950 to-purple-500">
+      <div className="w-full h-4/6 flex justify-center p-5">
+        <div className="w-[40vw] bg-gradient-to-tr from-purple-950 via-purple-800 to-purple-500 rounded-md">
           <img src={imgd} alt="" className="w-96 h-[593PX]" />
         </div>
         <form
