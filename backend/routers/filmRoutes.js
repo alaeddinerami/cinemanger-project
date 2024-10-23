@@ -9,4 +9,7 @@ router.get('/:id', filmController.getFilmById);
 router.put('/:id',upload, filmController.updateFilm);
 router.delete('/:id', filmController.deleteFilm);
 
+router.get('/filmSeanse/:id', filmController.getFilmByIdWithSeance);
+
+
 module.exports = router;

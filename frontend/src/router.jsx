@@ -13,6 +13,7 @@ import AdminFilm from "./views/admin/AdminFilm";
 import AdminUser from "./views/admin/adminUser";
 import AdminSalle from "./views/admin/adminSalle";
 import AdminSession from "./views/admin/AdminSession";
+import Streem from "./views/client/Streem";
 
 const router = createBrowserRouter([
 
@@ -52,8 +53,12 @@ const router = createBrowserRouter([
       ,{
         path:"admin-salles",
         element:<AdminSalle />
+      },{
+        path:"streem",
+        element:<Streem />
       }
       
+
       
       
     ],

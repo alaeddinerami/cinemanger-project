@@ -12,6 +12,9 @@ function Navbar() {
 
     navigate("/login");
   };
+  const handleToStreem=()=>{
+    navigate('/streem')
+  }
 
   return (
     <>
@@ -41,6 +44,10 @@ function Navbar() {
           >
             Coming Soon
           </a>
+        </div>
+
+        <div className="mr-5">
+          <Button onClick={handleToStreem}> streem </Button>
         </div>
         <div>
           <Button onClick={handleLogout}>Logout</Button>
