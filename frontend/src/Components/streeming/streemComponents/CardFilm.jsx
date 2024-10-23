@@ -6,7 +6,7 @@ export default function CardFilm({ id, imgsrc, title }) {
   return (
     <div className="relative max-w-xs bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl">
       <div className="relative group">
-        <Link to={`/film/${id}`}>
+        <Link to={`/streem-film/${id}`}>
           <img
             src={imgsrc || image}
             alt={title}

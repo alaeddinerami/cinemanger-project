@@ -14,6 +14,7 @@ import AdminUser from "./views/admin/adminUser";
 import AdminSalle from "./views/admin/adminSalle";
 import AdminSession from "./views/admin/AdminSession";
 import Streem from "./views/client/Streem";
+import StreemFilm from "./views/client/streemFilm";
 
 const router = createBrowserRouter([
 
@@ -56,6 +57,9 @@ const router = createBrowserRouter([
       },{
         path:"streem",
         element:<Streem />
+      },{
+        path:'streem-film/:id',
+        element:<StreemFilm />
       }
       
 
