@@ -15,7 +15,7 @@ export default function StreemFilm() {
   const currentUser = getCurrentUser();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [avrRating, setAvrRating] = useState(0); // Default value
+  const [avrRating, setAvrRating] = useState(0); 
 
   useEffect(() => {
     const fetchFilm = async () => {
@@ -45,23 +45,39 @@ export default function StreemFilm() {
     fetchComments();
   }, [id]);
 
-    useEffect(() => {
-      const fetchAvgRating = async () => {
-        try {
-          const response = await axiosInstance.get(`/ratings/${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          setAvrRating(response.data.averageRating ); 
-        } catch (error) {
-          console.error("Error fetching average rating:", error);
-        }
-      };
-      fetchAvgRating();
-    }, [id]);
+    // useEffect(() => {
+    //   const fetchAvgRating = async () => {
+    //     try {
+    //       const response = await axiosInstance.get(`/ratings/${id}`, {
+    //         headers: {
+    //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //         },
+    //       });
+    //       setAvrRating(response.data.averageRating ); 
+    //     } catch (error) {
+    //       console.error("Error fetching average rating:", error);
+    //     }
+    //   };
+    //   fetchAvgRating();
+    // }, [id]);
 
-  const handleRatingChange = async (newRating) => {
+    const fetchAvgRating = async () => {
+      try {
+        const response = await axiosInstance.get(`/ratings/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setAvrRating(response.data.averageRating ); 
+      } catch (error) {
+        console.error("Error fetching average rating:", error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchAvgRating(); 
+    }, [id]);
+    const handleRatingChange = async (newRating) => {
     setRating(newRating);
     try {
       const response = await axiosInstance.post(
@@ -75,6 +91,7 @@ export default function StreemFilm() {
       );
       setSuccess(true);
       setError(null);
+      fetchAvgRating();
       console.log("Rating submitted successfully:", response.data);
     } catch (error) {
       setError("Error submitting rating. Please try again.");
@@ -99,6 +116,7 @@ export default function StreemFilm() {
 
       setComments((prevComments) => [...prevComments, response.data]);
       setComment("");
+      
     } catch (error) {
       console.error("Error creating comment:", error);
     }
