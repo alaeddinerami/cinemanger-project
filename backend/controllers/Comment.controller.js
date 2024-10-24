@@ -1,5 +1,17 @@
 const commentService = require("../services/comment.service");
 class CommentController {
+
+  async getCommentsByFilmId(req, res) {
+    try {
+      const { id } = req.params; 
+      
+      
+      const comments = await commentService.getCommentsByFilmId(id);
+      res.status(200).json(comments);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
   async createComment(req, res) {
     try {
       const { comment } = req.body;

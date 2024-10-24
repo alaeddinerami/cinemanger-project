@@ -2,6 +2,24 @@ const Comment = require('../models/Comment.model');
 const FilmModel = require('../models/Film.model');
 
 class CommentService{
+    async getCommentsByFilmId(id) {
+        try {
+            const filmExists = await FilmModel.findById(id);
+            // console.log(filmExists);
+
+            if (!filmExists) {
+                throw new Error('Film not found');
+            }
+
+            const comments = await Comment.find({ film: id })
+                                          .populate('user', 'name')
+                                          .exec();
+
+            return comments;
+        } catch (error) {
+            throw new Error(`Error retrieving comments by filmId: ${error.message}`);
+        }
+    }
     async createComment(userId,filmId,comment){
         console.log(userId,filmId,comment);
 
