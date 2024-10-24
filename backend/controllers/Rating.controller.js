@@ -23,9 +23,9 @@ class RatingController {
     }
   }
   async getAverageRating(req, res) {
-    const { filmId } = req.params;
+    const { id } = req.params;
     try {
-      const averageRating = await RatingService.getAverageRating(filmId);
+      const averageRating = await RatingService.getAverageRating(id);
       res.status(200).json({ averageRating });
     } catch (error) {
       res.status(500).json({ error: error.message });

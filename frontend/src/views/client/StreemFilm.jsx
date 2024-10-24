@@ -13,8 +13,23 @@ export default function StreemFilm() {
   const { id } = useParams();
   const [film, setFilm] = useState(null);
   const currentUser = getCurrentUser();
-  // console.log(currentUser);
 
+  const [avrRating, setavrRating]= useState("")
+  // console.log(currentUser);
+useEffect(()=>{
+  const fetchAverRating = async()=>{
+    try {
+      const response = await axiosInstance.get(`/ratings/${id}`)
+      setavrRating(response.data)
+      console.log(response.data);
+      
+    } catch (error) {
+      console.error("Error fetching film:", error);
+
+    }
+  }
+  fetchAverRating();
+},[id])
   useEffect(() => {
     const fetchFilm = async () => {
       try {

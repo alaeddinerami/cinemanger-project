@@ -22,9 +22,13 @@ class RatingService {
       throw new Error(`Error creating rating: ${error.message}`);
     }
   }
-  async getAverageRating(filmId) {
+  async getAverageRating(id) {
     try {
-      const ratings = await Rating.find({ film: filmId });
+      console.log(id);
+      
+      const ratings = await Rating.find({ film: id });
+      console.log(ratings);
+      
 
       if (ratings.length === 0) {
         return 0;
