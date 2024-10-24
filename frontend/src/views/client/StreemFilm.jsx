@@ -14,22 +14,20 @@ export default function StreemFilm() {
   const [film, setFilm] = useState(null);
   const currentUser = getCurrentUser();
 
-  const [avrRating, setavrRating]= useState("")
+  const [avrRating, setavrRating] = useState("");
   // console.log(currentUser);
-useEffect(()=>{
-  const fetchAverRating = async()=>{
-    try {
-      const response = await axiosInstance.get(`/ratings/${id}`)
-      setavrRating(response.data)
-      console.log(response.data);
-      
-    } catch (error) {
-      console.error("Error fetching film:", error);
-
-    }
-  }
-  fetchAverRating();
-},[id])
+  useEffect(() => {
+    const fetchAverRating = async () => {
+      try {
+        const response = await axiosInstance.get(`/ratings/${id}`);
+        setavrRating(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching film:", error);
+      }
+    };
+    fetchAverRating();
+  }, [id]);
   useEffect(() => {
     const fetchFilm = async () => {
       try {
@@ -122,7 +120,7 @@ useEffect(()=>{
                   </p>
                   <div className="flex items-center mb-4">
                     <span className="bg-yellow-200 text-black px-3 py-1 rounded-full text-sm font-bold">
-                      ⭐ {film.imdbRating || "N/A"}
+                      ⭐ {avrRating.averageRating || "0"}
                     </span>
                     <span className="ml-4 text-gray-400">IMDB Rating</span>
                   </div>
