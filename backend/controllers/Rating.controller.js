@@ -1,23 +1,36 @@
-const RatingService = require('../services/rating.service'); 
+const RatingService = require("../services/rating.service");
 
 class RatingController {
-  async getRating(req,res){
+  async getRating(req, res) {
     try {
-      const Ratings = await RatingService.getRating()
-      res.status(200).json(Ratings)
+      const Ratings = await RatingService.getRating();
+      res.status(200).json(Ratings);
     } catch (error) {
-      res.status(500).json({ error: error.message }); 
+      res.status(500).json({ error: error.message });
     }
   }
-     async createRating(req, res) {
-    const { userId, filmId, ratingValue } = req.body;  
+  async createRating(req, res) {
+    const { userId, filmId, ratingValue } = req.body;
     try {
-      const newRating = await RatingService.createRating(userId, filmId, ratingValue);
-      res.status(201).json(newRating);  
+      const newRating = await RatingService.createRating(
+        userId,
+        filmId,
+        ratingValue
+      );
+      res.status(201).json(newRating);
     } catch (error) {
-      res.status(500).json({ error: error.message });  
+      res.status(500).json({ error: error.message });
+    }
+  }
+  async getAverageRating(req, res) {
+    const { filmId } = req.params;
+    try {
+      const averageRating = await RatingService.getAverageRating(filmId);
+      res.status(200).json({ averageRating });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   }
 }
 
-module.exports = new  RatingController();
+module.exports = new RatingController();
