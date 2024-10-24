@@ -13,21 +13,10 @@ export default function StreemFilm() {
   const { id } = useParams();
   const [film, setFilm] = useState(null);
   const currentUser = getCurrentUser();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [avrRating, setAvrRating] = useState(0); // Default value
 
-  const [avrRating, setavrRating] = useState("");
-  // console.log(currentUser);
-  useEffect(() => {
-    const fetchAverRating = async () => {
-      try {
-        const response = await axiosInstance.get(`/ratings/${id}`);
-        setavrRating(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching film:", error);
-      }
-    };
-    fetchAverRating();
-  }, [id]);
   useEffect(() => {
     const fetchFilm = async () => {
       try {
@@ -55,6 +44,43 @@ export default function StreemFilm() {
     };
     fetchComments();
   }, [id]);
+
+    useEffect(() => {
+      const fetchAvgRating = async () => {
+        try {
+          const response = await axiosInstance.get(`/ratings/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          setAvrRating(response.data.averageRating ); 
+        } catch (error) {
+          console.error("Error fetching average rating:", error);
+        }
+      };
+      fetchAvgRating();
+    }, [id]);
+
+  const handleRatingChange = async (newRating) => {
+    setRating(newRating);
+    try {
+      const response = await axiosInstance.post(
+        `/ratings/${id}`,
+        { ratingValue: newRating },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setSuccess(true);
+      setError(null);
+      console.log("Rating submitted successfully:", response.data);
+    } catch (error) {
+      setError("Error submitting rating. Please try again.");
+      console.error("Error submitting rating:", error);
+    }
+  };
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -94,10 +120,6 @@ export default function StreemFilm() {
     }
   };
 
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-  };
-
   return (
     <>
       <div className="flex flex-col min-h-screen bg-black">
@@ -115,12 +137,10 @@ export default function StreemFilm() {
                 </div>
                 <div className="w-full md:w-2/3 text-white">
                   <h1 className="text-4xl font-bold mb-4">{film.title}</h1>
-                  <p className="text-gray-400 text-lg mb-4">
-                    {film.description}
-                  </p>
+                  <p className="text-gray-400 text-lg mb-4">{film.description}</p>
                   <div className="flex items-center mb-4">
                     <span className="bg-yellow-200 text-black px-3 py-1 rounded-full text-sm font-bold">
-                      ⭐ {avrRating.averageRating || "0"}
+                      ⭐ {avrRating}
                     </span>
                     <span className="ml-4 text-gray-400">IMDB Rating</span>
                   </div>
@@ -155,9 +175,7 @@ export default function StreemFilm() {
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
                     className={`cursor-pointer text-3xl ${
-                      star <= (hoverRating || rating)
-                        ? "text-yellow-500"
-                        : "text-gray-500"
+                      star <= (hoverRating || rating) ? "text-yellow-500" : "text-gray-500"
                     }`}
                   >
                     <svg
@@ -176,6 +194,8 @@ export default function StreemFilm() {
                 ))}
               </div>
               <p className="mt-2 text-gray-300">Your Rating: {rating}</p>
+              {error && <p className="text-red-500">{error}</p>}
+              {success && <p className="text-green-500">Thank you for your rating!</p>}
             </section>
 
             <section className="mt-10 text-white">
@@ -191,7 +211,7 @@ export default function StreemFilm() {
                   type="submit"
                   className="mt-2 bg-yellow-500 px-4 py-2 rounded-md text-black"
                 >
-                  Add Comment
+                  Comment
                 </button>
               </form>
               <div className="space-y-4">
@@ -199,45 +219,15 @@ export default function StreemFilm() {
                   comments.map((comment) => (
                     <div
                       key={comment._id}
-                      className="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between"
+                      className="bg-gray-800 p-4 rounded-lg flex justify-between"
                     >
-                      <div className="flex">
-                        <img
-                          src={comment.user.image}
-                          alt={comment.user.name}
-                          className="w-10 h-10 rounded-full mr-4"
-                        />
-                        <div>
-                          <p className="text-yellow-500 font-bold">
-                            {comment.user.name}
-                          </p>
-                          <p className="text-white">{comment.comment}</p>
-                        </div>
-                      </div>
-
-                      {comment.user._id === currentUser.id && (
-                        <button
-                          onClick={() => handleDeleteComment(comment._id)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="w-6 h-6"
-                          >
-                            <path d="M3 6h18" />
-                            <path d="M19 6l-1.5 14.5a2 2 0 0 1-2 1.5H8.5a2 2 0 0 1-2-1.5L5 6" />
-                            <path d="M10 11v6" />
-                            <path d="M14 11v6" />
-                            <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
-                          </svg>
-                        </button>
-                      )}
+                      <p className="text-gray-300">{comment.comment}</p>
+                      <button
+                        onClick={() => handleDeleteComment(comment._id)}
+                        className="text-red-500"
+                      >
+                        Delete
+                      </button>
                     </div>
                   ))
                 ) : (
