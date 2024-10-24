@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBarSt from "../../Components/streeming/streemComponents/NavBarSt";
 import Footer from "../../Components/footer/Footer";
-import image from "../../assets/hero-image.jpg"; // Replace with your image path
-import video from "../../../../backend/uploads/video.mp4"; // Local video file
+import image from "../../assets/hero-image.jpg"; 
+import video from "../../../../backend/uploads/video.mp4"; 
+import axiosInstance from "../../api/axios";
+import { useParams } from "react-router-dom";
 
 export default function StreemFilm() {
   const [rating, setRating] = useState(0);
@@ -10,10 +12,20 @@ export default function StreemFilm() {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   
-  // Simulate user data
+  const {id}= useParams();
+  const [films, setFilms]= useState(null)
+useEffect(()=>{
+  const fetchFilm = async ()=>{
+    const response = await axiosInstance.get(`/films/${id}`)
+    const data = await response.json();
+    console.log(data);
+  }
+  fetchFilm();
+},[id])
+
   const currentUser = {
     name: "John Doe", 
-    image: "https://randomuser.me/api/portraits/men/1.jpg" // Replace with actual image URL
+    image: "https://randomuser.me/api/portraits/men/1.jpg" 
   };
 
   const handleRatingChange = (newRating) => {
@@ -28,7 +40,7 @@ export default function StreemFilm() {
         user: currentUser,
       };
       setComments([...comments, newComment]);
-      setComment(""); // Clear the input after submission
+      setComment(""); 
     }
   };
 
@@ -39,7 +51,7 @@ export default function StreemFilm() {
         <main className="flex-grow p-6">
           <div className="container mx-auto py-8">
             <div className="flex flex-col md:flex-row gap-8">
-              {/* Film Poster */}
+              
               <div className="w-full md:w-1/3">
                 <img
                   src={image}
@@ -48,7 +60,7 @@ export default function StreemFilm() {
                 />
               </div>
 
-              {/* Film Details */}
+             
               <div className="w-full md:w-2/3 text-white">
                 <h1 className="text-4xl font-bold mb-4">Vikings</h1>
                 <p className="text-gray-400 text-lg mb-4">
@@ -70,7 +82,7 @@ export default function StreemFilm() {
               </div>
             </div>
 
-            {/* Video Section */}
+          
             <section className="mt-10">
               <h2 className="text-3xl font-bold text-white mb-4">
                 Watch Trailer
@@ -84,7 +96,7 @@ export default function StreemFilm() {
               </div>
             </section>
 
-            {/* Rating Section */}
+            
             <section className="mt-10 text-white">
               <h2 className="text-3xl font-bold mb-4">Rate This Film</h2>
               <div className="flex items-center space-x-2">
@@ -100,7 +112,6 @@ export default function StreemFilm() {
                         : "text-gray-500"
                     }`}
                   >
-                    {/* Star SVG */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -119,7 +130,6 @@ export default function StreemFilm() {
               <p className="mt-2 text-gray-300">Your Rating: {rating}</p>
             </section>
 
-            {/* Comment Section */}
             <section className="mt-10 text-white">
               <h2 className="text-3xl font-bold mb-4">Comments</h2>
               <form onSubmit={handleCommentSubmit} className="mb-4">
@@ -145,18 +155,15 @@ export default function StreemFilm() {
                       key={index}
                       className="bg-gray-800 p-4 rounded-lg shadow-md flex"
                     >
-                      {/* User Image */}
                       <img
                         src={comment.user.image}
                         alt={comment.user.name}
                         className="w-10 h-10 rounded-full mr-4"
                       />
                       <div>
-                        {/* Username */}
                         <p className="text-yellow-500 font-bold">
                           {comment.user.name}
                         </p>
-                        {/* Comment Text */}
                         <p className="text-white">{comment.text}</p>
                       </div>
                     </div>

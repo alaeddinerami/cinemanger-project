@@ -47,7 +47,7 @@ class FilmService {
 
     async getFilmById(id) {
         try {
-            return await Film.findById(id).populate('ratings');
+            return await Film.findById(id)
         } catch (error) {
             throw new Error(`Film not found: ${error.message}`);
         }
