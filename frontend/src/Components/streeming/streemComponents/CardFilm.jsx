@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import image from "../../../assets/hero-image.jpg"; // Replace with your image path
+// Replace with your image path
 
-export default function CardFilm({ id, imgsrc, title }) {
+export default function CardFilm({ id, image, title }) {
   return (
     <div className="relative max-w-xs bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl">
       <div className="relative group">
         <Link to={`/streem-film/${id}`}>
           <img
-            src={imgsrc || image}
+            src={image}
             alt={title}
             className="w-full h-48 object-cover transition-opacity duration-300 group-hover:opacity-75"
           />

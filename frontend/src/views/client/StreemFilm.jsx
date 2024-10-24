@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBarSt from "../../Components/streeming/streemComponents/NavBarSt";
 import Footer from "../../Components/footer/Footer";
-import image from "../../assets/hero-image.jpg"; 
-import video from "../../../../backend/uploads/video.mp4"; 
 import axiosInstance from "../../api/axios";
 import { useParams } from "react-router-dom";
 
@@ -11,21 +9,26 @@ export default function StreemFilm() {
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  
-  const {id}= useParams();
-  const [films, setFilms]= useState(null)
-useEffect(()=>{
-  const fetchFilm = async ()=>{
-    const response = await axiosInstance.get(`/films/${id}`)
-    const data = await response.json();
-    console.log(data);
-  }
-  fetchFilm();
-},[id])
+  const { id } = useParams();
+  const [film, setFilm] = useState(null);
+
+  useEffect(() => {
+    const fetchFilm = async () => {
+      try {
+        const response = await axiosInstance.get(`/films/${id}`);
+        setFilm(response.data); 
+        console.log(response.data);
+        
+      } catch (error) {
+        console.error("Error fetching film:", error);
+      }
+    };
+    fetchFilm();
+  }, [id]);
 
   const currentUser = {
-    name: "John Doe", 
-    image: "https://randomuser.me/api/portraits/men/1.jpg" 
+    name: "John Doe",
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
   };
 
   const handleRatingChange = (newRating) => {
@@ -50,53 +53,47 @@ useEffect(()=>{
         <NavBarSt />
         <main className="flex-grow p-6">
           <div className="container mx-auto py-8">
-            <div className="flex flex-col md:flex-row gap-8">
-              
-              <div className="w-full md:w-1/3">
-                <img
-                  src={image}
-                  alt="Film Poster"
-                  className="w-full md:h-full rounded-lg shadow-lg"
-                />
-              </div>
-
-             
-              <div className="w-full md:w-2/3 text-white">
-                <h1 className="text-4xl font-bold mb-4">Vikings</h1>
-                <p className="text-gray-400 text-lg mb-4">
-                  A short test description.
-                </p>
-
-                <div className="flex items-center mb-4">
-                  <span className="bg-yellow-200 text-black px-3 py-1 rounded-full text-sm font-bold">
-                    ⭐ 4.5
-                  </span>
-                  <span className="ml-4 text-gray-400">IMDB Rating</span>
+            {film ? (
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="w-full md:w-1/3">
+                  <img
+                    src={`${import.meta.env.VITE_MINIO_URL}${film.image}`} 
+                    alt={film.title}
+                    className="w-full md:h-full rounded-lg shadow-lg"
+                  />
                 </div>
-
-                <h2 className="text-2xl font-semibold mb-2">Description</h2>
-                <p className="text-gray-300 mb-6">
-                  Vikings is a historical drama television series created by
-                  Michael Hirst.
-                </p>
+                <div className="w-full md:w-2/3 text-white">
+                  <h1 className="text-4xl font-bold mb-4">{film.title}</h1>
+                  <p className="text-gray-400 text-lg mb-4">{film.description}</p>
+                  <div className="flex items-center mb-4">
+                    <span className="bg-yellow-200 text-black px-3 py-1 rounded-full text-sm font-bold">
+                      ⭐ {film.imdbRating || "N/A"}
+                    </span>
+                    <span className="ml-4 text-gray-400">IMDB Rating</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <p className="text-gray-400">Loading film details...</p>
+            )}
 
-          
             <section className="mt-10">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Watch Trailer
-              </h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Watch Film</h2>
+              {film && film.video?(
+
+            
               <div className="relative w-full pb-[36.25%]">
                 <video
-                  className="absolute top-0 left-56 w-4/6 h-6/6 rounded-lg shadow-lg"
-                  src={video}
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                  src={`${import.meta.env.VITE_MINIO_URL}${film.video}`}
                   controls
                 />
               </div>
+               ) : (
+                <p className="text-gray-400">Film not available</p>
+              )}
             </section>
 
-            
             <section className="mt-10 text-white">
               <h2 className="text-3xl font-bold mb-4">Rate This Film</h2>
               <div className="flex items-center space-x-2">
@@ -107,9 +104,7 @@ useEffect(()=>{
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
                     className={`cursor-pointer text-3xl ${
-                      star <= (hoverRating || rating)
-                        ? "text-yellow-500"
-                        : "text-gray-500"
+                      star <= (hoverRating || rating) ? "text-yellow-500" : "text-gray-500"
                     }`}
                   >
                     <svg

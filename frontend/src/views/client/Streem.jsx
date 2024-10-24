@@ -27,7 +27,7 @@ export default function Streem() {
         <main className="flex-grow p-6">
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {films.map((film) => (
-              <CardFilm key={film._id} id={film._id} title={film.title} />
+              <CardFilm key={film._id} id={film._id} image ={`${import.meta.env.VITE_MINIO_URL}${film.image}`} title={film.title} />
             ))}
           </section>
         </main>
